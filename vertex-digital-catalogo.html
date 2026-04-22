@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertex Digital – Catálogo de Servicios</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --accent: #00e5a0;
+    --accent2: #005eff;
+    --gray: #1a1a1a;
+    --gray2: #2a2a2a;
+    --text-muted: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+
+  .lang-toggle { position: fixed; top: 16px; right: 16px; z-index: 999; display: flex; background: var(--gray2); border: 1px solid #ffffff15; border-radius: 50px; overflow: hidden; }
+  .lang-btn { padding: 8px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; border: none; background: transparent; color: var(--text-muted); transition: all 0.2s; }
+  .lang-btn.active { background: var(--accent); color: var(--black); border-radius: 50px; }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 24px; background: radial-gradient(ellipse at 50% 0%, #00e5a020 0%, transparent 70%), radial-gradient(ellipse at 80% 80%, #005eff15 0%, transparent 60%); border-bottom: 1px solid #ffffff10; }
+  .hero-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; font-weight: 500; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 18vw, 140px); line-height: 0.9; letter-spacing: 2px; background: linear-gradient(135deg, #fff 40%, #00e5a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .hero-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(18px, 4vw, 32px); letter-spacing: 6px; color: var(--accent2); margin-bottom: 32px; }
+  .hero-desc { max-width: 480px; color: var(--text-muted); font-size: 15px; line-height: 1.8; margin-bottom: 40px; }
+  .hero-contact { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .contact-pill { display: inline-flex; align-items: center; gap: 10px; background: var(--gray2); border: 1px solid #ffffff15; border-radius: 50px; padding: 10px 20px; font-size: 13px; color: var(--white); }
+  .contact-pill span { color: var(--accent); font-weight: 600; }
+
+  section { padding: 80px 24px; max-width: 720px; margin: 0 auto; }
+  .section-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; font-weight: 600; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 8vw, 60px); line-height: 1; margin-bottom: 40px; color: var(--white); }
+
+  .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 60px; }
+  .service-card { background: var(--gray); border: 1px solid #ffffff10; border-radius: 16px; padding: 24px 20px; transition: border-color 0.3s, transform 0.3s; }
+  .service-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .service-icon { font-size: 28px; margin-bottom: 12px; }
+  .service-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 8px; color: var(--white); }
+  .service-card p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+  .packages { display: flex; flex-direction: column; gap: 16px; }
+  .package { border-radius: 20px; padding: 28px 24px; border: 1px solid transparent; transition: transform 0.3s; }
+  .package:hover { transform: translateX(6px); }
+  .package.green { background: linear-gradient(135deg, #0d2018, #0a1a10); border-color: #00e5a030; }
+  .package.blue { background: linear-gradient(135deg, #0a1428, #0d1535); border-color: #005eff40; }
+  .package.red { background: linear-gradient(135deg, #1a0a10, #200d15); border-color: #ff004430; }
+  .package.yellow { background: linear-gradient(135deg, #1a1500, #201a00); border-color: #ffcc0030; }
+  .package-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+  .package-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
+  .package.green .package-name { color: #00e5a0; }
+  .package.blue .package-name { color: #4d8fff; }
+  .package.red .package-name { color: #ff6680; }
+  .package.yellow .package-name { color: #ffd700; }
+  .package-price { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); }
+  .package-price small { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text-muted); font-weight: 300; }
+  .package-badge { display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; font-weight: 600; }
+  .package.blue .package-badge { background: #005eff25; color: #4d8fff; border: 1px solid #005eff40; }
+  .package-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+  .package-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .package-features li { font-size: 13px; color: #ccc; display: flex; align-items: center; gap: 10px; }
+  .package-features li::before { content: '✓'; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .package.green .package-features li::before { color: #00e5a0; }
+  .package.blue .package-features li::before { color: #4d8fff; }
+  .package.red .package-features li::before { color: #ff6680; }
+  .package.yellow .package-features li::before { color: #ffd700; }
+
+  .niches { display: flex; flex-wrap: wrap; gap: 10px; }
+  .niche-tag { background: var(--gray2); border: 1px solid #ffffff10; border-radius: 50px; padding: 8px 18px; font-size: 13px; color: var(--text-muted); transition: all 0.2s; }
+  .niche-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  .cta-section { text-align: center; padding: 80px 24px; background: radial-gradient(ellipse at 50% 50%, #00e5a010, transparent 70%); border-top: 1px solid #ffffff08; }
+  .cta-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 10vw, 72px); margin-bottom: 16px; color: var(--white); }
+  .cta-section p { color: var(--text-muted); margin-bottom: 36px; font-size: 15px; }
+  .cta-btn { display: inline-block; background: var(--accent); color: var(--black); font-weight: 700; font-size: 14px; letter-spacing: 1px; padding: 16px 36px; border-radius: 50px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+  .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px #00e5a060; }
+
+  .divider { width: 40px; height: 2px; background: var(--accent); margin: 0 auto 60px; }
+  footer { text-align: center; padding: 32px 24px; border-top: 1px solid #ffffff08; font-size: 12px; color: var(--text-muted); }
+  footer strong { color: var(--accent); }
+  @media (max-width: 480px) { .services-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('es')">ES</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<div class="hero">
+  <div class="hero-tag" id="t-hero-tag">Agencia de Marketing Digital · Comayagua, Honduras</div>
+  <h1>VERTEX</h1>
+  <div class="hero-sub">Digital</div>
+  <p class="hero-desc" id="t-hero-desc">Ayudamos negocios locales a conseguir más clientes, mejorar su imagen y crecer con redes sociales, contenido profesional y estrategia digital.</p>
+  <div class="hero-contact">
+    <a href="https://wa.me/qr/F6O6DWZLD22SO1" style="text-decoration:none;" target="_blank"><div class="contact-pill">📱 WhatsApp <span>Vertex Digital</span></div></a>
+    <a href="https://www.instagram.com/vertexdigital.web0?igsh=MTRqbnl0ZnNydjh0ZQ==" style="text-decoration:none;" target="_blank"><div class="contact-pill">📸 Instagram <span>@vertexdigital.web0</span></div></a>
+    <a href="https://www.facebook.com/share/1Jiat6FjWC/" style="text-decoration:none;" target="_blank"><div class="contact-pill">👍 Facebook <span>Vertex Digital</span></div></a>
+  </div>
+</div>
+
+<section>
+  <div class="section-label" id="t-srv-label">Lo que hacemos</div>
+  <div class="section-title" id="t-srv-title">SERVICIOS</div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">📱</div><h3 id="t-s1-h">Redes Sociales</h3><p id="t-s1-p">Manejo profesional de Facebook, Instagram y TikTok con estrategia de crecimiento.</p></div>
+    <div class="service-card"><div class="service-icon">📸</div><h3 id="t-s2-h">Contenido Pro</h3><p id="t-s2-p">Fotografías y videos profesionales de tu negocio y productos cada mes.</p></div>
+    <div class="service-card"><div class="service-icon">🎬</div><h3 id="t-s3-h">Reels & TikTok</h3><p id="t-s3-p">Videos cortos editados para atraer más clientes y generar engagement.</p></div>
+    <div class="service-card"><div class="service-icon">📍</div><h3 id="t-s4-h">Google Maps</h3><p id="t-s4-p">Optimización de perfil para que más personas te encuentren en tu zona.</p></div>
+    <div class="service-card"><div class="service-icon">🌐</div><h3 id="t-s5-h">Página Web</h3><p id="t-s5-p">Sitio web moderno con menú digital, WhatsApp y Google Maps integrado.</p></div>
+    <div class="service-card"><div class="service-icon">📢</div><h3 id="t-s6-h">Publicidad</h3><p id="t-s6-p">Campañas en Facebook e Instagram Ads para atraer clientes locales.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-label" id="t-pkg-label">Inversión mensual</div>
+  <div class="section-title" id="t-pkg-title">PAQUETES</div>
+  <div class="packages">
+
+    <div class="package green">
+      <div class="package-header">
+        <div class="package-name" id="t-p1-name">🟢 Emprende</div>
+        <div class="package-price">L.2,990 <small id="t-p1-per">/mes</small></div>
+      </div>
+      <p class="package-desc" id="t-p1-desc">Ideal para negocios que quieren empezar a crecer digitalmente.</p>
+      <ul class="package-features">
+        <li id="t-p1-f1">8 publicaciones mensuales</li>
+        <li id="t-p1-f2">4 historias semanales</li>
+        <li id="t-p1-f3">Diseño profesional</li>
+        <li id="t-p1-f4">Manejo de 1 red social</li>
+        <li id="t-p1-f5">Asesoría mensual</li>
+      </ul>
+    </div>
+
+    <div class="package blue">
+      <div class="package-header">
+        <div class="package-name" id="t-p2-name">🔵 Crecimiento</div>
+        <div class="package-price">L.5,990 <small id="t-p2-per">/mes</small></div>
+      </div>
+      <div class="package-badge" id="t-p2-badge">⭐ Más solicitado</div>
+      <p class="package-desc" id="t-p2-desc">El paquete completo para negocios que quieren resultados reales.</p>
+      <ul class="package-features">
+        <li id="t-p2-f1">12 publicaciones mensuales</li>
+        <li id="t-p2-f2">8 reels profesionales</li>
+        <li id="t-p2-f3">Facebook + Instagram</li>
+        <li id="t-p2-f4">Fotos profesionales mensuales</li>
+        <li id="t-p2-f5">Optimización Google Maps</li>
+        <li id="t-p2-f6">Estrategia mensual</li>
+        <li id="t-p2-f7">Soporte WhatsApp</li>
+      </ul>
+    </div>
+
+    <div class="package red">
+      <div class="package-header">
+        <div class="package-name" id="t-p3-name">🔴 Elite</div>
+        <div class="package-price">L.8,990 <small id="t-p3-per">/mes</small></div>
+      </div>
+      <p class="package-desc" id="t-p3-desc">Para marcas que quieren dominar su mercado local.</p>
+      <ul class="package-features">
+        <li id="t-p3-f1">20 publicaciones mensuales</li>
+        <li id="t-p3-f2">12 reels premium</li>
+        <li id="t-p3-f3">Facebook + Instagram + TikTok</li>
+        <li id="t-p3-f4">Publicidad básica incluida</li>
+        <li id="t-p3-f5">Fotos y videos profesionales</li>
+        <li id="t-p3-f6">Google Maps completo</li>
+        <li id="t-p3-f7">Página web básica incluida</li>
+        <li id="t-p3-f8">Reporte mensual de resultados</li>
+      </ul>
+    </div>
+
+    <div class="package yellow">
+      <div class="package-header">
+        <div class="package-name" id="t-p4-name">🟡 Impulso Express</div>
+        <div class="package-price">desde L.1,990 <small id="t-p4-per">/única vez</small></div>
+      </div>
+      <p class="package-desc" id="t-p4-desc">Pago único. Perfecto para empezar con contenido profesional listo.</p>
+      <ul class="package-features">
+        <li id="t-p4-f1">Sesión de fotos profesional</li>
+        <li id="t-p4-f2">5 videos cortos editados</li>
+        <li id="t-p4-f3">Material listo para publicar</li>
+        <li id="t-p4-f4">Entrega rápida</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-label" id="t-niche-label">Con quiénes trabajamos</div>
+  <div class="section-title" id="t-niche-title">NEGOCIOS IDEALES</div>
+  <div class="niches">
+    <div class="niche-tag" id="t-n1">🍽️ Restaurantes</div>
+    <div class="niche-tag" id="t-n2">☕ Cafeterías</div>
+    <div class="niche-tag" id="t-n3">🏨 Hoteles</div>
+    <div class="niche-tag" id="t-n4">✂️ Barberías</div>
+    <div class="niche-tag" id="t-n5">💪 Gimnasios</div>
+    <div class="niche-tag" id="t-n6">👗 Tiendas de ropa</div>
+    <div class="niche-tag" id="t-n7">🍫 Chocolaterías</div>
+    <div class="niche-tag" id="t-n8">🍦 Dulcerías</div>
+    <div class="niche-tag" id="t-n9">🦷 Clínicas dentales</div>
+    <div class="niche-tag" id="t-n10">🌮 Antojitos</div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <h2 id="t-cta-h">¿LISTO PARA CRECER?</h2>
+  <p id="t-cta-p">Escríbenos hoy y te damos una recomendación gratis para tu negocio.</p>
+  <a href="https://wa.me/qr/F6O6DWZLD22SO1" class="cta-btn" target="_blank" id="t-cta-btn">📲 Contáctanos por WhatsApp</a>
+</div>
+
+<footer>
+  <strong>Vertex Digital</strong> · Comayagua, Honduras · <span id="t-footer">Marketing Digital para Negocios Locales</span>
+</footer>
+
+<script>
+const translations = {
+  es: {
+    'hero-tag': 'Agencia de Marketing Digital · Comayagua, Honduras',
+    'hero-desc': 'Ayudamos negocios locales a conseguir más clientes, mejorar su imagen y crecer con redes sociales, contenido profesional y estrategia digital.',
+    'srv-label': 'Lo que hacemos', 'srv-title': 'SERVICIOS',
+    's1-h': 'Redes Sociales', 's1-p': 'Manejo profesional de Facebook, Instagram y TikTok con estrategia de crecimiento.',
+    's2-h': 'Contenido Pro', 's2-p': 'Fotografías y videos profesionales de tu negocio y productos cada mes.',
+    's3-h': 'Reels & TikTok', 's3-p': 'Videos cortos editados para atraer más clientes y generar engagement.',
+    's4-h': 'Google Maps', 's4-p': 'Optimización de perfil para que más personas te encuentren en tu zona.',
+    's5-h': 'Página Web', 's5-p': 'Sitio web moderno con menú digital, WhatsApp y Google Maps integrado.',
+    's6-h': 'Publicidad', 's6-p': 'Campañas en Facebook e Instagram Ads para atraer clientes locales.',
+    'pkg-label': 'Inversión mensual', 'pkg-title': 'PAQUETES',
+    'p1-name': '🟢 Emprende', 'p1-per': '/mes', 'p1-desc': 'Ideal para negocios que quieren empezar a crecer digitalmente.',
+    'p1-f1': '8 publicaciones mensuales', 'p1-f2': '4 historias semanales', 'p1-f3': 'Diseño profesional', 'p1-f4': 'Manejo de 1 red social', 'p1-f5': 'Asesoría mensual',
+    'p2-name': '🔵 Crecimiento', 'p2-per': '/mes', 'p2-badge': '⭐ Más solicitado', 'p2-desc': 'El paquete completo para negocios que quieren resultados reales.',
+    'p2-f1': '12 publicaciones mensuales', 'p2-f2': '8 reels profesionales', 'p2-f3': 'Facebook + Instagram', 'p2-f4': 'Fotos profesionales mensuales', 'p2-f5': 'Optimización Google Maps', 'p2-f6': 'Estrategia mensual', 'p2-f7': 'Soporte WhatsApp',
+    'p3-name': '🔴 Elite', 'p3-per': '/mes', 'p3-desc': 'Para marcas que quieren dominar su mercado local.',
+    'p3-f1': '20 publicaciones mensuales', 'p3-f2': '12 reels premium', 'p3-f3': 'Facebook + Instagram + TikTok', 'p3-f4': 'Publicidad básica incluida', 'p3-f5': 'Fotos y videos profesionales', 'p3-f6': 'Google Maps completo', 'p3-f7': 'Página web básica incluida', 'p3-f8': 'Reporte mensual de resultados',
+    'p4-name': '🟡 Impulso Express', 'p4-per': '/única vez', 'p4-desc': 'Pago único. Perfecto para empezar con contenido profesional listo.',
+    'p4-f1': 'Sesión de fotos profesional', 'p4-f2': '5 videos cortos editados', 'p4-f3': 'Material listo para publicar', 'p4-f4': 'Entrega rápida',
+    'niche-label': 'Con quiénes trabajamos', 'niche-title': 'NEGOCIOS IDEALES',
+    'n1': '🍽️ Restaurantes', 'n2': '☕ Cafeterías', 'n3': '🏨 Hoteles', 'n4': '✂️ Barberías', 'n5': '💪 Gimnasios',
+    'n6': '👗 Tiendas de ropa', 'n7': '🍫 Chocolaterías', 'n8': '🍦 Dulcerías', 'n9': '🦷 Clínicas dentales', 'n10': '🌮 Antojitos',
+    'cta-h': '¿LISTO PARA CRECER?', 'cta-p': 'Escríbenos hoy y te damos una recomendación gratis para tu negocio.', 'cta-btn': '📲 Contáctanos por WhatsApp',
+    'footer': 'Marketing Digital para Negocios Locales'
+  },
+  en: {
+    'hero-tag': 'Digital Marketing Agency · Comayagua, Honduras',
+    'hero-desc': 'We help local businesses get more customers, improve their image and grow with social media, professional content and digital strategy.',
+    'srv-label': 'What we do', 'srv-title': 'SERVICES',
+    's1-h': 'Social Media', 's1-p': 'Professional management of Facebook, Instagram and TikTok with growth strategy.',
+    's2-h': 'Pro Content', 's2-p': 'Professional photos and videos of your business and products every month.',
+    's3-h': 'Reels & TikTok', 's3-p': 'Edited short videos to attract more customers and generate engagement.',
+    's4-h': 'Google Maps', 's4-p': 'Profile optimization so more people find you in your area.',
+    's5-h': 'Website', 's5-p': 'Modern website with digital menu, WhatsApp and Google Maps integrated.',
+    's6-h': 'Advertising', 's6-p': 'Facebook and Instagram Ads campaigns to attract local customers.',
+    'pkg-label': 'Monthly investment', 'pkg-title': 'PACKAGES',
+    'p1-name': '🟢 Starter', 'p1-per': '/month', 'p1-desc': 'Ideal for businesses that want to start growing digitally.',
+    'p1-f1': '8 monthly posts', 'p1-f2': '4 weekly stories', 'p1-f3': 'Professional design', 'p1-f4': '1 social media managed', 'p1-f5': 'Monthly consultation',
+    'p2-name': '🔵 Growth', 'p2-per': '/month', 'p2-badge': '⭐ Most popular', 'p2-desc': 'The complete package for businesses that want real results.',
+    'p2-f1': '12 monthly posts', 'p2-f2': '8 professional reels', 'p2-f3': 'Facebook + Instagram', 'p2-f4': 'Monthly professional photos', 'p2-f5': 'Google Maps optimization', 'p2-f6': 'Monthly strategy', 'p2-f7': 'WhatsApp support',
+    'p3-name': '🔴 Elite', 'p3-per': '/month', 'p3-desc': 'For brands that want to dominate their local market.',
+    'p3-f1': '20 monthly posts', 'p3-f2': '12 premium reels', 'p3-f3': 'Facebook + Instagram + TikTok', 'p3-f4': 'Basic advertising included', 'p3-f5': 'Professional photos and videos', 'p3-f6': 'Full Google Maps setup', 'p3-f7': 'Basic website included', 'p3-f8': 'Monthly results report',
+    'p4-name': '🟡 Express Boost', 'p4-per': '/one time', 'p4-desc': 'One-time payment. Perfect to start with professional content ready.',
+    'p4-f1': 'Professional photo session', 'p4-f2': '5 edited short videos', 'p4-f3': 'Content ready to publish', 'p4-f4': 'Fast delivery',
+    'niche-label': 'Who we work with', 'niche-title': 'IDEAL BUSINESSES',
+    'n1': '🍽️ Restaurants', 'n2': '☕ Coffee Shops', 'n3': '🏨 Hotels', 'n4': '✂️ Barbershops', 'n5': '💪 Gyms',
+    'n6': '👗 Clothing Stores', 'n7': '🍫 Chocolate Shops', 'n8': '🍦 Sweet Shops', 'n9': '🦷 Dental Clinics', 'n10': '🌮 Street Food',
+    'cta-h': 'READY TO GROW?', 'cta-p': 'Contact us today and we\'ll give you a free recommendation for your business.', 'cta-btn': '📲 Contact us on WhatsApp',
+    'footer': 'Digital Marketing for Local Businesses'
+  }
+};
+
+function setLang(lang) {
+  const t = translations[lang];
+  Object.keys(t).forEach(key => {
+    const el = document.getElementById('t-' + key);
+    if (el) el.textContent = t[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  document.documentElement.lang = lang;
+}
+</script>
+
+</body>
+</html>
